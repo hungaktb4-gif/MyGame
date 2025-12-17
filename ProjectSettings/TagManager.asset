@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Money
+  - Enemy
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 'Ground '
+  - object
+  - Enemy
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: 
+    uniqueID: 1438782909
+    locked: 0
+  - name: ' Background '
+    uniqueID: 1399759573
+    locked: 0
+  - name: ground
+    uniqueID: 3114013805
+    locked: 0
+  - name: 'Foreground '
+    uniqueID: 2570858485
+    locked: 0
+  - name: 'Enemy '
+    uniqueID: 2561865043
+    locked: 0
+  - name: 'player '
+    uniqueID: 3139787811
+    locked: 0
+  - name: items
+    uniqueID: 1289467313
+    locked: 0
+  - name: ' UI'
+    uniqueID: 2277320815
+    locked: 0
