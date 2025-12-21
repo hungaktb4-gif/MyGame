@@ -1177,9 +1177,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 25
   damageInterVal: 2
-  enemyLayer:
-    serializedVersion: 2
-    m_Bits: 256
   attackPoint: {fileID: 1701259303}
   attackRate: 2
   animator: {fileID: 441027544}
@@ -11916,7 +11913,7 @@ RectTransform:
   m_GameObject: {fileID: 2052969510}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.93813, y: 0.93813, z: 0.93813}
+  m_LocalScale: {x: 0.95473486, y: 0.95473486, z: 0.95473486}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1120088142}
@@ -11924,7 +11921,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.62200004}
-  m_AnchoredPosition: {x: -860, y: 347}
+  m_AnchoredPosition: {x: -854, y: 255}
   m_SizeDelta: {x: 200, y: -82}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2052969512
@@ -12179,7 +12176,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -8.364994, y: 0}
+  m_AnchoredPosition: {x: -8.36499, y: 0}
   m_SizeDelta: {x: -16.73, y: 44.515}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2103467444
