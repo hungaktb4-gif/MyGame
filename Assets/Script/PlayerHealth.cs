@@ -41,6 +41,14 @@ public class PlayerHealth : MonoBehaviour
     {
         isTakingDamage = false;
     }
+    public void AddHealth(int health)
+    {
+        currentHealth += maxHealth;
+        if (currentHealth > 100)
+        {
+            currentHealth = 100;
+        }
+    }
     // Update is called once per frame
     void Update()
     {

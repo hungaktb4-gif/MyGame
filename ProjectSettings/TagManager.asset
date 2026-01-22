@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Money
   - Enemy
+  - 'Bullet '
+  - 'GunTag '
   layers:
   - Default
   - TransparentFX
@@ -16,8 +18,8 @@ TagManager:
   - 'Ground '
   - object
   - Enemy
-  - 
-  - 
+  - Bullet
+  - Gun
   - 
   - 
   - 
@@ -66,4 +68,10 @@ TagManager:
     locked: 0
   - name: ' UI'
     uniqueID: 2277320815
+    locked: 0
+  - name: Bullet
+    uniqueID: 3854283199
+    locked: 0
+  - name: Gun
+    uniqueID: 13670873
     locked: 0
