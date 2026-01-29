@@ -14,14 +14,27 @@ public class PlayerHealth : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       currentHealth = maxHealth;
+        currentHealth = maxHealth;
+        healthBar.color = Color.green;
         gameManager = FindObjectOfType<GameManger>();
     }
     public void TakeDamage(int amount)
     {
         currentHealth -= amount;
-        healthBar.fillAmount =  currentHealth / maxHealth;
-        Debug.Log("Player Hp: "+currentHealth);
+        float remainingHealth =  currentHealth / maxHealth;
+        healthBar.fillAmount = remainingHealth;
+        if (remainingHealth >= 0.5f)
+        {
+            healthBar.color = Color.green;
+        }
+        else if (remainingHealth > 0.2f)
+        {
+            healthBar.color = Color.yellow;
+        }
+        else
+        {
+            healthBar.color = Color.white;
+        }
         if (currentHealth <=0)
         {
             Die();
