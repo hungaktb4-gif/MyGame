@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public int maxHealth = 100;
-    public int currentHealth;
+    public Image healthBar;
+    public float maxHealth = 100;
+    public float currentHealth;
     public float damageInterval = 1.5f;
     private bool isTakingDamage = false;
     private GameManger gameManager;
@@ -18,6 +20,7 @@ public class PlayerHealth : MonoBehaviour
     public void TakeDamage(int amount)
     {
         currentHealth -= amount;
+        healthBar.fillAmount =  currentHealth / maxHealth;
         Debug.Log("Player Hp: "+currentHealth);
         if (currentHealth <=0)
         {
@@ -43,7 +46,7 @@ public class PlayerHealth : MonoBehaviour
     }
     public void AddHealth(int health)
     {
-        currentHealth += maxHealth;
+        currentHealth += health;
         if (currentHealth > 100)
         {
             currentHealth = 100;
