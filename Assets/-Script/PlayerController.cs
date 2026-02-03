@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     private GameManger gameManager;
     private Animator animator;
     private bool isGrounded;
+    private bool isClamb;
     private Rigidbody2D rb;
     private void Awake()
     {
@@ -35,10 +36,37 @@ public class PlayerController : MonoBehaviour
     private void HandleMovement()
     {
         float moveInput = Input.GetAxis("Horizontal");
-        rb.velocity = new Vector2(moveInput*moveSpeed, rb.velocity.y);
+        float y = Input.GetAxis("Vertical");
+        if(isClamb)
+        {
+            rb.gravityScale = 0;
+            rb.velocity = new Vector2(rb.velocity.x,y*moveSpeed);
+        }
+        else
+        {
+            rb.gravityScale = 5;
+            rb.velocity = new Vector2(moveInput*moveSpeed, rb.velocity.y);
+        }
         if(moveInput > 0)transform.localScale = new Vector3(1,1,1);
         else if (moveInput < 0)transform.localScale = new Vector3(-1,1,1);
     }
+    void OnTriggerStay2D(Collider2D collision)
+    {
+        if(collision.CompareTag("Ladder"))
+        {
+            if(Mathf.Abs(Input.GetAxisRaw("Vertical"))>0.1f)
+            {
+                isClamb = true;
+                animator.SetBool("isClamb",true);
+            }
+        }
+    }
+    void OnTriggerExit2D(Collider2D collision)
+    {
+        isClamb = false;
+        animator.SetBool("isClamb",false);
+    }
+
     private void HandleJump()
     {
         if (Input.GetButtonDown("Jump")&&isGrounded)

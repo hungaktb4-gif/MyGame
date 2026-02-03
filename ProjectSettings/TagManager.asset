@@ -8,6 +8,8 @@ TagManager:
   - Enemy
   - 'Bullet '
   - 'GunTag '
+  - medicine
+  - Ladder
   layers:
   - Default
   - TransparentFX
@@ -20,7 +22,7 @@ TagManager:
   - Enemy
   - Bullet
   - Gun
-  - 
+  - medicine
   - 
   - 
   - 
@@ -60,6 +62,9 @@ TagManager:
   - name: 'Enemy '
     uniqueID: 2561865043
     locked: 0
+  - name: Ladder
+    uniqueID: 1824033961
+    locked: 0
   - name: 'player '
     uniqueID: 3139787811
     locked: 0
@@ -74,4 +79,7 @@ TagManager:
     locked: 0
   - name: Gun
     uniqueID: 13670873
+    locked: 0
+  - name: medicine
+    uniqueID: 259874145
     locked: 0

@@ -37,12 +37,6 @@ public class GunController : MonoBehaviour
             pickedGun = true;
             gunInScene.transform.SetParent(hand);
             gunInScene.transform.localPosition = Vector3.zero;
-            gunInScene.transform.localScale = Vector3.one;
-            SpriteRenderer sr = gunInScene.GetComponent<SpriteRenderer>();
-            if(sr != null)
-            {
-                sr.sortingOrder = 50;
-            }
         }
     }
     void Shoot()
