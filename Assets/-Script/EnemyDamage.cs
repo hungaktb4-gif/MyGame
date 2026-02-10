@@ -4,49 +4,35 @@ using UnityEngine;
 
 public class EnemyDamage : MonoBehaviour
 {
-    public int damage = 5;
-    public float damageInterVal = 1.5f;
-    private bool isPlayerInrange = false;
-    private float nextDamageTime = 0f;
-    private PlayerHealth playerHealth;
-    private Animator animator;
-    public float attackRange = 1.5f;
-    public Transform Player;
+   private int damage = 5;
+   public PlayerHealth playerHealth;
+   private Animator animator;
+
     private void Awake()
     {
         animator = GetComponent<Animator>();
     }
-    void OnTriggerEnter2D(Collider2D other)
+    void OnTriggerEnter2D(Collider2D collision)
     {
-        if (other.CompareTag("Player"))
+        if(collision.CompareTag("Player"))
         {
-            isPlayerInrange = true;
-            playerHealth = other.GetComponent<PlayerHealth>();        
+            playerHealth = collision.GetComponent<PlayerHealth>();
+            InvokeRepeating("DoDamage",0f, 0.5f);    
         }
     }
-    void OnTriggerExit2D(Collider2D other)
+    void OnTriggerExit2D(Collider2D collision)
     {
-        if (other.CompareTag("Player"))
+        if(collision.CompareTag("Player"))
         {
-            isPlayerInrange = false;
-        }
+            playerHealth = null;
+            CancelInvoke("DoDamage");
+        }      
     }
-    void Update()
+    void DoDamage()
     {
-        UpdateAnimation();
-        if (isPlayerInrange && Time.time >= nextDamageTime)
+        if(playerHealth != null)
         {
-            nextDamageTime = Time.time + damageInterVal;
-            if (playerHealth != null)
-            {
-                playerHealth.TakeDamage(damage);
-            }
+            playerHealth.TakeDamage(damage);
         }
-    }
-    private void UpdateAnimation()
-    {
-        float distanceToPlayer = Vector2.Distance(transform.position, Player.position);
-        bool isAttack = distanceToPlayer <= attackRange;
-        animator.SetBool("isAttack",isAttack);
     }
 }
