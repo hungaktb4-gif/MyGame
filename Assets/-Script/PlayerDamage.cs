@@ -6,13 +6,10 @@ public class PlayerDamage : MonoBehaviour
 {
     private float nextDamageTime = 0f;
     public int damage = 25;
-    public float damageInterVal = 1f;
-    private bool isEnemyInrange = false;
     private float nextAttackTime = 0.2f;
     private EnemyHealth enemyHealth;
     private float attackRange = 1.5f;
     public Transform attackPoint;
-    public float attackRate = 2f;
     public Animator animator;
     public Transform Enemy;
     // Start is called before the first frame update

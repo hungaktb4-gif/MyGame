@@ -7,7 +7,6 @@ public class Bullet : MonoBehaviour
     public int damage = 10;
     private ObjectPool pool;
     public Transform Enemy;
-    private bool check = false;
     private float detection = 0.5f;
     private LayerMask enemyLayer;
     private void Awake()

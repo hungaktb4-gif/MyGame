@@ -6,17 +6,22 @@ public class EnemyDamage : MonoBehaviour
 {
    private int damage = 5;
    public PlayerHealth playerHealth;
+   private float attackRange = 1.5f;
+   private Rigidbody2D rb;
+   public Transform Player;
    private Animator animator;
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
     }
     void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.CompareTag("Player"))
         {
             playerHealth = collision.GetComponent<PlayerHealth>();
+            InvokeRepeating("UpdateAnimation",0f,0.1f);
             InvokeRepeating("DoDamage",0f, 0.5f);    
         }
     }
@@ -25,6 +30,7 @@ public class EnemyDamage : MonoBehaviour
         if(collision.CompareTag("Player"))
         {
             playerHealth = null;
+            UpdateAnimation();
             CancelInvoke("DoDamage");
         }      
     }
@@ -34,5 +40,12 @@ public class EnemyDamage : MonoBehaviour
         {
             playerHealth.TakeDamage(damage);
         }
+    }
+    void UpdateAnimation()
+    {
+        float distance = Vector2.Distance(transform.position,Player.position);
+        bool isAttack = distance <= attackRange;
+        animator.SetBool("isAttack",isAttack);
+        animator.SetBool("isRunning",!isAttack);
     }
 }

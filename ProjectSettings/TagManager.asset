@@ -10,6 +10,7 @@ TagManager:
   - 'GunTag '
   - medicine
   - Ladder
+  - Trap
   layers:
   - Default
   - TransparentFX
@@ -67,6 +68,9 @@ TagManager:
     locked: 0
   - name: 'player '
     uniqueID: 3139787811
+    locked: 0
+  - name: Trap
+    uniqueID: 2818857787
     locked: 0
   - name: items
     uniqueID: 1289467313
