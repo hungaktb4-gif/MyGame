@@ -35,12 +35,12 @@ public class enemy : MonoBehaviour
         {
             rb.velocity = new Vector2(-speed, 0);
         }
-        if(Vector2.Distance(transform.position,currentStart.position) < 1f && currentStart == pointB.transform)
+        if(Vector2.Distance(transform.position,currentStart.position) < 1f && currentStart == pointB.transform )
         {   
             Flip();
             currentStart = pointA.transform;
         }
-        if(Vector2.Distance(transform.position,currentStart.position) < 1f && currentStart == pointA.transform)
+        if(Vector2.Distance(transform.position,currentStart.position) < 1f && currentStart == pointA.transform )
         {   
             Flip();
             currentStart = pointB.transform;

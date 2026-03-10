@@ -72,8 +72,6 @@ public class PlayerController : MonoBehaviour
     private void UpdateAnimation()
     {
         bool isRunning = Mathf.Abs(rb.velocity.x) > 0.1f;
-        bool isJumping = !isGrounded;
         animator.SetBool("isRunning",isRunning);
-        animator.SetBool("isJumping ",isJumping);
     }
 }

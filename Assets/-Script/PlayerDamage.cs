@@ -5,8 +5,8 @@ using UnityEngine;
 public class PlayerDamage : MonoBehaviour
 {
     private float nextDamageTime = 0f;
-    public int damage = 25;
-    private float nextAttackTime = 0.2f;
+    public int damage = 10;
+    private float nextAttackTime = 0.4f;
     private EnemyHealth enemyHealth;
     private float attackRange = 1.5f;
     public Transform attackPoint;
@@ -29,7 +29,7 @@ public class PlayerDamage : MonoBehaviour
         if (Time.time <= nextDamageTime)
             return;
         animator.SetBool("isAttack",true);
-        Invoke("DoDamage",0.5f);
+        Invoke("DoDamage",0.1f);
         nextDamageTime = Time.time + nextAttackTime;
     }
      void DoDamage()
