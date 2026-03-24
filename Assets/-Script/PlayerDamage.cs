@@ -6,6 +6,8 @@ public class PlayerDamage : MonoBehaviour
 {
     private float nextDamageTime = 0f;
     public int damage = 10;
+    public string dataName;
+    public HeroData heroData;
     private float nextAttackTime = 0.4f;
     private EnemyHealth enemyHealth;
     private float attackRange = 1.5f;
@@ -16,6 +18,11 @@ public class PlayerDamage : MonoBehaviour
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        heroData = Resources.Load<HeroData>(dataName);
+    }
+    void Start()
+    {
+        heroData.damageAttack = damage;
     }
     void Update()
     {
@@ -37,7 +44,7 @@ public class PlayerDamage : MonoBehaviour
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, LayerMask.GetMask("Enemy"));
         foreach (Collider2D enemy in hitEnemies)
         {
-            enemy.GetComponent<EnemyHealth>().TakeDamage(damage);
+            enemy.GetComponent<EnemyHealth>().TakeDamage(heroData.damageAttack);
         }
         animator.SetBool("isAttack",false);
      }

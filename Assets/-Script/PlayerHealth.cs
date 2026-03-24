@@ -7,27 +7,29 @@ public class PlayerHealth : MonoBehaviour
 {
     public Image healthBar;
     public float maxHealth = 100;
-    public float currentHealth;
+    public HeroData heroData;
+    public string dataName;
     public float damageInterval = 1.5f;
     private bool isTakingDamage = false;
     private GameManger gameManager;
     private SpriteRenderer myColor;
     private void Awake()
     {
+        heroData =  Resources.Load<HeroData>(dataName);
         myColor = GetComponent<SpriteRenderer>();
     }
     // Start is called before the first frame update
     void Start()
     {
-        currentHealth = maxHealth;
+        heroData.health = maxHealth;
         healthBar.color = Color.green;
         gameManager = FindObjectOfType<GameManger>();
     }
     public void TakeDamage(int amount)
     {
-        currentHealth -= amount;
+        heroData.health -= amount;
         StartCoroutine(FlashRed());
-        float remainingHealth =  currentHealth / maxHealth;
+        float remainingHealth =  heroData.health / maxHealth;
         healthBar.fillAmount = remainingHealth;
         if (remainingHealth >= 0.5f)
         {
@@ -41,7 +43,7 @@ public class PlayerHealth : MonoBehaviour
         {
             healthBar.color = Color.white;
         }
-        if (currentHealth <=0)
+        if (heroData.health <=0)
         {
             Die();
         }
@@ -77,9 +79,9 @@ public class PlayerHealth : MonoBehaviour
     }
     public void AddHealth(int health)
     {
-        currentHealth += health;
+        heroData.health += health;
         StartCoroutine(FlashGreen());
-        float remainingHealth = currentHealth / maxHealth;
+        float remainingHealth = heroData.health / maxHealth;
         healthBar.fillAmount = remainingHealth;
         if (remainingHealth >= 0.5f)
         {
@@ -93,9 +95,9 @@ public class PlayerHealth : MonoBehaviour
         {
             healthBar.color = Color.white;
         }
-        if (currentHealth > 100)
+        if (heroData.health > 100)
         {
-            currentHealth = 100;
+            heroData.health = 100;
         }
     }
 }

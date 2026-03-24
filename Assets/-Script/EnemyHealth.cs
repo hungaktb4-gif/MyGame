@@ -5,25 +5,26 @@ using UnityEngine;
 public class EnemyHealth : MonoBehaviour
 {
     public int EnemyMaxHealth = 50;
+    public string dataName;
+    public EnemyData enemyData;
     public int currentHealth;
     public float damageInterval = 1f;
     private SpriteRenderer enemyColor;
 
     private void Awake()
     {
+        enemyData = Resources.Load<EnemyData>(dataName);
         enemyColor = GetComponent<SpriteRenderer>();
     }
-    // Start is called before the first frame update
     void Start()
     {
-        currentHealth = EnemyMaxHealth;
+        enemyData.health= EnemyMaxHealth;
     }
     public void TakeDamage(int amount)
     {
-        Debug.Log("đcm unity toàn làm bố mày khổ ");
-        currentHealth -= amount;
+        enemyData.health -= amount;
         StartCoroutine(FlashRed());
-        if (currentHealth <= 0)
+        if (enemyData.health <= 0)
         {
             Die();
         }
@@ -37,11 +38,5 @@ public class EnemyHealth : MonoBehaviour
     void Die()
     {
          Destroy(gameObject);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

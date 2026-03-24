@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlayerKick : MonoBehaviour
 {
     private int damage = 15;
+    public HeroData heroData;
+    public string dataName;
     private EnemyHealth enemyHealth;
     private PlayerHealth playerHealth;
     public Animator animator;
@@ -19,9 +21,13 @@ public class PlayerKick : MonoBehaviour
     {
         playerHealth = GetComponent<PlayerHealth>();
         animator = GetComponent<Animator>();
+        heroData = Resources.Load<HeroData>(dataName);
     }
     // Start is called before the first frame update
-
+    void Start()
+    {
+        heroData.damageKick = damage;
+    }
     // Update is called once per frame
     void Update()
     {
@@ -52,7 +58,7 @@ public class PlayerKick : MonoBehaviour
             enemyHealth = enemies.GetComponent<EnemyHealth>();
             if(enemies != null)
             {
-                enemyHealth.TakeDamage(damage);
+                enemyHealth.TakeDamage(heroData.damageKick);
                 playerHealth.AddHealth(5);
             }
         }

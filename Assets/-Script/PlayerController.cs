@@ -51,14 +51,12 @@ public class PlayerController : MonoBehaviour
             if(Mathf.Abs(Input.GetAxisRaw("Vertical"))>0.1f)
             {
                 isClamb = true;
-                animator.SetBool("isClamb",true);
             }
         }
     }
     void OnTriggerExit2D(Collider2D collision)
     {
         isClamb = false;
-        animator.SetBool("isClamb",false);
     }
 
     private void HandleJump()

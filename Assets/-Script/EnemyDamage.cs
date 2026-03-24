@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class EnemyDamage : MonoBehaviour
 {
-   private int damage = 5;
+   public EnemyData enemyData;
+   public string dataName;
    public PlayerHealth playerHealth;
    private float attackRange = 1.5f;
    private Rigidbody2D rb;
@@ -15,6 +16,7 @@ public class EnemyDamage : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+        enemyData = Resources.Load<EnemyData>(dataName);
     }
     void OnTriggerEnter2D(Collider2D collision)
     {
@@ -38,7 +40,7 @@ public class EnemyDamage : MonoBehaviour
     {
         if(playerHealth != null)
         {
-            playerHealth.TakeDamage(damage);
+            playerHealth.TakeDamage(enemyData.damage);
         }
     }
     void UpdateAnimation()

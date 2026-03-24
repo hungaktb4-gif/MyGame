@@ -39,7 +39,6 @@ public class SpikeTrap : MonoBehaviour
     void DoDamage()
     {
         bool isRising = animator.GetBool("isRising");
-        Debug.Log("check đc ko: "+isRising);
         if(playerHealth != null&&isRising)
         {
             playerHealth.TakeDamage(damage);
