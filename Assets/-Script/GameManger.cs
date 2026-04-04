@@ -3,10 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using Unity.Mathematics;
+using Cinemachine;
+using System.Runtime.InteropServices;
 
 public class GameManger : MonoBehaviour
 {
     private int score = 0;
+    public Transform spawnPoint;
+    public GameObject[] characters;
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private GameObject gameOverUI;
     public bool isGameOver = false;
@@ -15,12 +20,13 @@ public class GameManger : MonoBehaviour
     {
         UpdateScore();
         gameOverUI.SetActive(false);
+        int index = PlayerPrefs.GetInt("SelectHero",0);
+        GameObject newPlayer = Instantiate(characters[index],spawnPoint.position,Quaternion.identity);
+        CinemachineVirtualCamera cam = GameObject.Find("Virtual Camera").GetComponent<CinemachineVirtualCamera>();
+        cam.Follow = newPlayer.transform;
+        cam.LookAt = newPlayer.transform;
     }
     // Update is called once per frame
-    void Update()
-    {
-        
-    }
     public void AddScore(int points)
     {
         if (!isGameOver)

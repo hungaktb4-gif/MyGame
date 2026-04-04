@@ -13,8 +13,10 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded;
     private bool isClamb;
     private Rigidbody2D rb;
+    public static PlayerController Instance{get;set;}
     private void Awake()
     {
+        Instance = this;
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         gameManager = FindAnyObjectByType<GameManger>();

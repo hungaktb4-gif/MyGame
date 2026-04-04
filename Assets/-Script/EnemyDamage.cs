@@ -45,7 +45,7 @@ public class EnemyDamage : MonoBehaviour
     }
     void UpdateAnimation()
     {
-        float distance = Vector2.Distance(transform.position, Player.position);
+        float distance = Vector2.Distance(transform.position, PlayerController.Instance.transform.position);
         bool isAttack = distance <= attackRange;
         animator.SetBool("isAttack",isAttack);
         animator.SetBool("isRunning",!isAttack);
