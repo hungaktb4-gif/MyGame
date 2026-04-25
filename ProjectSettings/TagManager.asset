@@ -11,6 +11,8 @@ TagManager:
   - medicine
   - Ladder
   - Trap
+  - ground
+  - cube
   layers:
   - Default
   - TransparentFX

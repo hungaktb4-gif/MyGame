@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerDamage : MonoBehaviour
+public class PlayerDamage : PlayerBase
 {
     private float nextDamageTime = 0f;
     public int damage = 10;
@@ -31,7 +31,7 @@ public class PlayerDamage : MonoBehaviour
             Attack();
         }
     }
-    void Attack()
+    protected override void Attack()
     {
         if (Time.time <= nextDamageTime)
             return;
