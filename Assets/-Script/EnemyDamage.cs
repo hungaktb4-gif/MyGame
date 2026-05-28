@@ -2,52 +2,52 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyDamage : MonoBehaviour
+public class EnemyDamage : HungMonoBehaviour
 {
-   public EnemyData enemyData;
-   public string dataName;
-   public PlayerHealth playerHealth;
-   private float attackRange = 1.5f;
-   private Rigidbody2D rb;
-   public Transform Player;
-   private Animator animator;
+   [SerializeField] protected EnemyData enemyData;
+   [SerializeField] protected string dataName;
+   [SerializeField] protected Transform Player;
+   protected PlayerHealth playerHealth;
+   protected float attackRange = 1.5f;
+   protected Rigidbody2D rb;
+   protected Animator animator;
 
-    private void Awake()
+    protected override void LoadComponents()
     {
-        animator = GetComponent<Animator>();
-        rb = GetComponent<Rigidbody2D>();
-        enemyData = Resources.Load<EnemyData>(dataName);
+        this.animator = GetComponent<Animator>();
+        this.rb = GetComponent<Rigidbody2D>();
+        this.enemyData = Resources.Load<EnemyData>(dataName);
     }
     void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.CompareTag("Player"))
         {
             playerHealth = collision.GetComponent<PlayerHealth>();
-            InvokeRepeating("UpdateAnimation",0f,0.1f);
-            InvokeRepeating("DoDamage",0f, 0.5f);    
+            InvokeRepeating(nameof(UpdateAnimation),0f,0.1f);
+            InvokeRepeating(nameof(DoDamage),0f, 0.5f);    
         }
     }
     void OnTriggerExit2D(Collider2D collision)
     {
         if(collision.CompareTag("Player"))
         {
-            playerHealth = null;
+            this.playerHealth = null;
             UpdateAnimation();
             CancelInvoke("DoDamage");
         }      
     }
     void DoDamage()
     {
-        if(playerHealth != null)
+        if(this.playerHealth != null)
         {
-            playerHealth.TakeDamage(enemyData.damage);
+            this.playerHealth.TakeDamage(enemyData.damage);
         }
     }
     void UpdateAnimation()
     {
         float distance = Vector2.Distance(transform.position, PlayerController.Instance.transform.position);
         bool isAttack = distance <= attackRange;
-        animator.SetBool("isAttack",isAttack);
-        animator.SetBool("isRunning",!isAttack);
+        this.animator.SetBool("isAttack",isAttack);
+        this.animator.SetBool("isRunning",!isAttack);
     }
 }

@@ -3,52 +3,64 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-public class KuroyamiSkill : MonoBehaviour
+public class KuroyamiSkill : HungMonoBehaviour
 {
-    public Transform attackPoint;
-    private float attackRange = 0.6f;
-    private Animator animator;
-    private EnemyHealth enemyHealth;
-    public string dataName;
-    private int damage = 50;
-    public HeroData heroData;
-    private int cooldown = 10;
-    private float nextDamageTime = 0f;
+    [SerializeField] protected Transform attackPoint;
+    [SerializeField] protected string dataName;
+    [SerializeField] protected HeroData heroData;
+    protected float attackRange = 0.6f;
+    protected Animator animator;
+    protected EnemyHealth enemyHealth;
+    protected int damage = 50;
+    protected int cooldown = 10;
+    protected bool canCastSkill;
+    protected float nextDamageTime = 0f;
 
-    private void Awake()
+    protected override void LoadComponents()
     {
-        animator = GetComponent<Animator>();
-        heroData = Resources.Load<HeroData>(dataName);
-    }
-    void Start()
-    {
-        heroData.damageSkill = damage;
+        this.animator = GetComponent<Animator>();
+        this.heroData = Resources.Load<HeroData>(dataName);
+        this.heroData.damageSkill = damage;
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            Attack();
-        }
+        this.CastSkill();
     }
-    void Attack()
+    protected virtual void CastSkill()
     {
-        if(Time.time <= nextDamageTime)
-            return;
-        animator.SetTrigger("castSkill");
-        Invoke("DoDamage",0.3f);
+        if(!this.IsCastSkill()) return;
+        this.Attack();
+    }
+    protected virtual bool IsCastSkill()
+    {
+        this.canCastSkill = NewInputManager.Instance.GetKeyButtonDown(KeyCode.Q);
+        return canCastSkill;
+    }
+    protected override void Attack()
+    {
+        if(Time.time <= nextDamageTime) return;
+        this.animator.SetTrigger("castSkill");
+        Invoke("CheckEnemies",0.3f);
         nextDamageTime = Time.time + cooldown;
     }
-    void DoDamage()
+    protected virtual void CheckEnemies()
     {
         Collider2D[] enemies = Physics2D.OverlapCircleAll(attackPoint.position,attackRange,LayerMask.GetMask("Enemy"));
+        this.AttackEnemies(enemies);
+    }
+    protected virtual void AttackEnemies(Collider2D[] enemies)
+    {
         foreach(Collider2D enemy in enemies)
         {
-            enemyHealth = enemy.GetComponent<EnemyHealth>();
-            if(enemyHealth != null)
-            {
-                enemyHealth.TakeDamage(heroData.damageSkill);
-            }
+            this.GetDamage(enemy); 
+        }
+    }
+    protected virtual void GetDamage(Collider2D enemy)
+    {
+        enemyHealth = enemy.GetComponent<EnemyHealth>();
+        if(enemyHealth != null)
+        {
+            enemyHealth.TakeDamage(heroData.damageSkill);
         }
     }
 }

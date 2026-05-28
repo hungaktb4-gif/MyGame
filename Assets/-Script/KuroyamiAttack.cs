@@ -2,58 +2,66 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class KuroyamiAttack : MonoBehaviour
+public class KuroyamiAttack : HungMonoBehaviour
 {
-    public Transform attackPoint;
-    private float attackRange = 0.6f;
-    private Animator animator;
-    private int numberOfAttack = 0;
-    private EnemyHealth enemyHealth;
-    public string dataName;
-    public HeroData heroData;
-    public int damage = 10;
+    [SerializeField] protected Transform attackPoint;
+    [SerializeField] protected string dataName;
+    [SerializeField] protected HeroData heroData;
+    [SerializeField] protected int damage = 10;
+    protected float attackRange = 0.6f;
+    protected Animator animator;
+    protected int numberOfAttack = 0;
+    protected EnemyHealth enemyHealth;
+    protected bool isClick;
 
-    private void Awake()
+    protected override void LoadComponents()
     {
-        animator = GetComponent<Animator>();
-        heroData = Resources.Load<HeroData>(dataName);
+        this.animator = GetComponent<Animator>();
+        this.heroData = Resources.Load<HeroData>(dataName);
+        this.heroData.damageAttack = damage;
     }
-    void Start()
-    {
-        heroData.damageAttack = damage;
-    }
-
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButtonDown(0))
-        {
-            numberOfAttack++;
-            Attack();
-        }
+        this.GetMouseDown();
     }
-    void Attack()
+    protected virtual void GetMouseDown()
     {
-        if(numberOfAttack == 1)
-        {
-            animator.SetTrigger("slashHorizontal");
-        }
-        else if(numberOfAttack == 2)
-        {
-            animator.SetTrigger("slashVertical");
-            numberOfAttack = 0;
-        }
-        Invoke("DoDamage",0.2f);
+        if(!this.IsClicking()) return;
+        this.numberOfAttack++;
+        this.Attack();
     }
-    void DoDamage()
+    protected virtual bool IsClicking()
+    {
+        this.isClick = NewInputManager.Instance.onClick; 
+        return isClick;  
+    }
+    protected override void Attack()
+    {
+        if(numberOfAttack % 2 == 0)
+        {
+            this.animator.SetTrigger("slashHorizontal");
+            this.numberOfAttack = 0;
+        }
+        else
+        {
+            this.animator.SetTrigger("slashVertical");
+        }
+        Invoke(nameof(CheckEnemies),0.1f);
+    }
+    protected virtual void CheckEnemies()
     {
         Collider2D[] enemies = Physics2D.OverlapCircleAll(attackPoint.position,attackRange, LayerMask.GetMask("Enemy"));
+        this.AttackEnemies(enemies);
+    }
+    protected virtual void AttackEnemies(Collider2D[] enemies)
+    {
         foreach(Collider2D enemy in enemies)
         {
-            enemyHealth = enemy.GetComponent<EnemyHealth>();
+            this.enemyHealth = enemy.GetComponent<EnemyHealth>();
             if(enemyHealth != null)
             {
-                enemyHealth.TakeDamage(heroData.damageAttack);
+                this.enemyHealth.TakeDamage(heroData.damageAttack);
             }
         }
     }

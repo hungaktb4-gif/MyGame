@@ -2,21 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : HungMonoBehaviour
 {
-    [SerializeField] private float moveSpeed = 5f;
-    [SerializeField] private float JumpForce = 15f;
-    [SerializeField] private LayerMask groundLayer;
-    [SerializeField] private Transform groundCheck;
-    private GameManger gameManager;
-    private Animator animator;
-    private bool isGrounded;
-    private bool isClamb;
-    private Rigidbody2D rb;
-    public static PlayerController Instance{get;set;}
-    private void Awake()
+    [SerializeField] protected float moveSpeed = 5f;
+    [SerializeField] protected float JumpForce = 15f;
+    [SerializeField] protected LayerMask groundLayer;
+    [SerializeField] protected Transform groundCheck;
+    protected GameManger gameManager;
+    protected Animator animator;
+    protected bool isGrounded;
+    protected bool isClamb;
+    protected Rigidbody2D rb;
+    protected static PlayerController instance;
+    public static PlayerController Instance => instance;
+    protected override void LoadComponents()
     {
-        Instance = this;
+        base.LoadComponents();
+        instance = this;
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         gameManager = FindAnyObjectByType<GameManger>();
@@ -33,6 +35,12 @@ public class PlayerController : MonoBehaviour
     {
         float moveInput = Input.GetAxis("Horizontal");
         float y = Input.GetAxis("Vertical");
+        this.Clamp(y,moveInput);
+        if(moveInput > 0)transform.localScale = new Vector3(1,1,1);
+        else if (moveInput < 0)transform.localScale = new Vector3(-1,1,1);
+    }
+    protected virtual void Clamp(float y,float moveInput)
+    {
         if(isClamb)
         {
             rb.gravityScale = 0;
@@ -43,8 +51,6 @@ public class PlayerController : MonoBehaviour
             rb.gravityScale = 5;
             rb.velocity = new Vector2(moveInput*moveSpeed, rb.velocity.y);
         }
-        if(moveInput > 0)transform.localScale = new Vector3(1,1,1);
-        else if (moveInput < 0)transform.localScale = new Vector3(-1,1,1);
     }
     void OnTriggerStay2D(Collider2D collision)
     {

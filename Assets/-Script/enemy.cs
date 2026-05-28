@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 
 public class enemy : MonoBehaviour
 { 
@@ -26,6 +27,10 @@ public class enemy : MonoBehaviour
     // Update is called once per frameUp
     void Update()
     {
+       this.Move();
+    }
+    protected virtual void Move()
+    {
         Vector2 point = currentStart.position - transform.position;
         if(currentStart ==  pointB.transform)
         {
@@ -46,7 +51,7 @@ public class enemy : MonoBehaviour
             currentStart = pointB.transform;
         }
     }
-    void Flip()
+    protected virtual void Flip()
     {
         Vector3 scaler = transform.localScale;
         scaler.x *= -1;

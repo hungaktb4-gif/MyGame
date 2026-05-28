@@ -2,67 +2,77 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerKick : MonoBehaviour
+public class PlayerKick : HungMonoBehaviour
 {
-    private int damage = 15;
-    public HeroData heroData;
-    public string dataName;
-    private EnemyHealth enemyHealth;
-    private PlayerHealth playerHealth;
-    public Animator animator;
-    private int numberOfKicks;
-    private int attackRange = 2;
-    public Transform attackPoint;
-    private bool canKick = true;
-    private float kickTime = 0f;
-    private float nextKickTime = 0.1f;
+    [SerializeField] protected int damage = 15;
+    [SerializeField] protected HeroData heroData;
+    [SerializeField] protected string dataName;
+    [SerializeField] protected Animator animator;
+    [SerializeField] protected Transform attackPoint;
+    protected EnemyHealth enemyHealth;
+    protected PlayerHealth playerHealth;
+    protected int numberOfKicks;
+    protected int attackRange = 2;
+    protected bool canKick = true;
+    protected float kickTime = 0f;
+    protected float nextKickTime = 0.2f;
 
-    private void Awake()
+    protected override void LoadComponents()
     {
         playerHealth = GetComponent<PlayerHealth>();
         animator = GetComponent<Animator>();
         heroData = Resources.Load<HeroData>(dataName);
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
         heroData.damageKick = damage;
     }
+    // Start is called before the first frame update
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.K) && canKick)
+        this.CastSkill();
+    }
+    protected virtual bool CanKick()
+    {
+        this.canKick = NewInputManager.Instance.GetKeyButtonDown(KeyCode.K);
+        return canKick;
+    }
+    protected virtual void CastSkill()
+    {
+        if(!this.CanKick()) return;
+        this.numberOfKicks++;
+        this.Attack();
+        if(this.numberOfKicks >= 5)
         {
-            numberOfKicks++;
-            Attack();
-            if(numberOfKicks >= 5)
-            {
-                StartCoroutine(WaitForKick());
-            }
+            StartCoroutine(WaitForKick());
         }
     }
-    public void Attack()
+    protected override void Attack()
     {
         if(Time.time <= kickTime) return;
         animator.SetBool("isKick",true);
-        Invoke("DoDamage",0.1f);
+        Invoke("CheckEnemies",0.1f);
         kickTime = Time.time + nextKickTime;
     }
-
-
-   public void DoDamage()
+    public void CheckEnemies()
     {
         Collider2D[] hitsEnemies = Physics2D.OverlapCircleAll(attackPoint.position,attackRange,LayerMask.GetMask("Enemy"));
+        this.AttackEnemies(hitsEnemies);
+    }
+    protected virtual void AttackEnemies(Collider2D[] hitsEnemies)
+    {
         foreach(Collider2D enemies in hitsEnemies)
         {
-            enemyHealth = enemies.GetComponent<EnemyHealth>();
-            if(enemies != null)
-            {
-                enemyHealth.TakeDamage(heroData.damageKick);
-                playerHealth.AddHealth(5);
-            }
+            this.DoDamageAndRestoreHealth(enemies);
         }
         animator.SetBool("isKick",false);
+    }
+    protected void DoDamageAndRestoreHealth(Collider2D enemies)
+    {
+        enemyHealth = enemies.GetComponent<EnemyHealth>();
+        if(enemies != null)
+        {
+            enemyHealth.TakeDamage(heroData.damageKick);
+            playerHealth.AddHealth(5);
+        }
     }
     IEnumerator WaitForKick()
     {

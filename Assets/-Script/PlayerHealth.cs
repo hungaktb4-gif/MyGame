@@ -3,55 +3,64 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerHealth : MonoBehaviour
+public class PlayerHealth : HungMonoBehaviour
 {
-    public Image healthBar;
-    public float maxHealth = 100;
-    public HeroData heroData;
-    public string dataName;
-    public float damageInterval = 1.5f;
-    private bool isTakingDamage = false;
-    private GameManger gameManager;
-    private SpriteRenderer myColor;
-    private void Awake()
-    {
-        heroData =  Resources.Load<HeroData>(dataName);
-        myColor = GetComponent<SpriteRenderer>();
-    }
+    [SerializeField] protected Image healthBar;
+    [SerializeField] protected float maxHealth = 100;
+    [SerializeField] protected HeroData heroData;
+    [SerializeField] protected string dataName;
+    protected float damageInterval = 1.5f;
+    protected bool isTakingDamage = false;
+    protected GameManger gameManager;
+    protected SpriteRenderer myColor;
     // Start is called before the first frame update
     void Start()
+    {
+        this.LoadHealthBar();
+    }
+    protected override void LoadComponents()
+    {
+        base.LoadComponents();
+        this.heroData =  Resources.Load<HeroData>(dataName);
+        this.myColor = GetComponent<SpriteRenderer>();
+    }
+    protected virtual void LoadHealthBar()
     {
         GameObject FindFill = GameObject.Find("Fill");
         if(FindFill != null)
         {
             healthBar = FindFill.GetComponent<Image>();
         }
+        this.SetHealthBar();
+        this.LoadGameManager();
+    }
+    protected virtual void SetHealthBar()
+    {
         heroData.health = maxHealth;
         healthBar.color = Color.green;
+    }
+    protected virtual void LoadGameManager()
+    {
         gameManager = FindObjectOfType<GameManger>();
     }
-    public void TakeDamage(int amount)
+    public virtual void TakeDamage(int amount)
     {
         heroData.health -= amount;
         StartCoroutine(FlashRed());
         float remainingHealth =  heroData.health / maxHealth;
+        this.SetColorForHealthBarWhenTakeDamage(remainingHealth);
+    }
+    protected virtual void SetColorForHealthBarWhenTakeDamage(float remainingHealth)
+    {
         healthBar.fillAmount = remainingHealth;
-        if (remainingHealth >= 0.5f)
-        {
-            healthBar.color = Color.green;
-        }
-        else if (remainingHealth > 0.2f)
-        {
-            healthBar.color = Color.yellow;
-        }
-        else
-        {
-            healthBar.color = Color.white;
-        }
-        if (heroData.health <=0)
-        {
-            Die();
-        }
+
+        if (remainingHealth >= 0.5f) healthBar.color = Color.green;
+
+        else if (remainingHealth > 0.2f) healthBar.color = Color.yellow;
+
+        else healthBar.color = Color.white;
+
+        if (heroData.health <=0) this.Die();
     }
     IEnumerator FlashRed()
     {
@@ -87,22 +96,18 @@ public class PlayerHealth : MonoBehaviour
         heroData.health += health;
         StartCoroutine(FlashGreen());
         float remainingHealth = heroData.health / maxHealth;
+        this.SetColorForHealthBarWhenAddHealth(remainingHealth);
+    }
+    protected virtual void SetColorForHealthBarWhenAddHealth(float remainingHealth)
+    {
         healthBar.fillAmount = remainingHealth;
-        if (remainingHealth >= 0.5f)
-        {
-            healthBar.color = Color.green;
-        }
-        else if (remainingHealth > 0.2f)
-        {
-            healthBar.color = Color.yellow;
-        }
-        else
-        {
-            healthBar.color = Color.white;
-        }
-        if (heroData.health > 100)
-        {
-            heroData.health = 100;
-        }
+
+        if (remainingHealth >= 0.5f) healthBar.color = Color.green;
+
+        else if (remainingHealth > 0.2f) healthBar.color = Color.yellow;
+
+        else healthBar.color = Color.white;
+
+        if (heroData.health > 100) heroData.health = 100;
     }
 }

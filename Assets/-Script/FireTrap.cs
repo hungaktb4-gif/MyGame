@@ -2,15 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FireTrap : MonoBehaviour
+public class FireTrap : HungMonoBehaviour
 {
-    private int damage = 50;
-    private Animator animator;
-    private PlayerHealth playerHealth;
+    protected int damage = 50;
+    protected Animator animator;
+    protected PlayerHealth playerHealth;
 
-    private void Awake()
+    protected override void LoadComponents()
     {
-        animator = GetComponent<Animator>();
+        base.LoadComponents();
+        this.animator = GetComponent<Animator>();
     }
     public void SetFireTrue()
     {
@@ -30,7 +31,7 @@ public class FireTrap : MonoBehaviour
         playerHealth = null;
         CancelInvoke();   
     }
-    void Attack()
+    protected override void Attack()
     {
         bool isFire = animator.GetBool("isFire");
         if(playerHealth != null&&isFire)

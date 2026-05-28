@@ -63,7 +63,6 @@ GameObject:
   - component: {fileID: 6966520068647215914}
   - component: {fileID: 6966520068647215915}
   - component: {fileID: 6966520068647215916}
-  - component: {fileID: 6966520068647215917}
   - component: {fileID: 6966520068647215918}
   m_Layer: 0
   m_Name: Hero 1
@@ -273,12 +272,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5cbc183d07184e169439caafb9f69ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nextDamageTime: 0
   damage: 25
-  dataName: Sanguine Knight
-  heroData: {fileID: 0}
   attackPoint: {fileID: 6966520069840322775}
   animator: {fileID: 6966520068647215912}
-  Enemy: {fileID: 0}
+  heroData: {fileID: 11400000, guid: f3a32d66027ff734fac3622975bc3e4e, type: 2}
+  dataName: Sanguine Knight
 --- !u!114 &6966520068647215916
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -293,23 +292,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackPoint: {fileID: 6966520069840322775}
   attackRange: 1
---- !u!114 &6966520068647215917
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6966520068647215906}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2003a01e176894cc7afa9c5e1138e650, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  firePoint: {fileID: 6966520069230423910}
-  bulletPool: {fileID: 6966520068534075223}
-  gunPrefab: {fileID: 7702425762645872498, guid: a5fba575a8e904d7abfffcd36a4b7675, type: 3}
-  hand: {fileID: 6966520070165653357}
-  gunInScene: {fileID: 0}
 --- !u!114 &6966520068647215918
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -322,6 +304,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76946e96c24aa419fb1e6e16b8ad6c65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 15
   heroData: {fileID: 0}
   dataName: Sanguine Knight
   animator: {fileID: 6966520068647215912}
