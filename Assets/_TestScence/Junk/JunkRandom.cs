@@ -4,19 +4,19 @@ using UnityEngine;
 
 public class JunkRandom : SaiMonoBehaviour
 {
-    [SerializeField] protected JunkCtrl junkCtrl;
+    [SerializeField] protected JunkSpawnerCtrl junkSpawnerCtrl;
 
     protected override void LoadComponents()
     {
         base.LoadComponents();
-        this.LoadJunkCtrl();
+        this.LoadJunkSpanwerCtrl();
     }
 
-    protected virtual void LoadJunkCtrl()
+    protected virtual void LoadJunkSpanwerCtrl()
     {
-        if(this.junkCtrl != null) return;
-        this.junkCtrl = GetComponent<JunkCtrl>();
-        Debug.Log(transform.name + ": LoadJunkCtrl",gameObject);
+        if(this.junkSpawnerCtrl != null) return;
+        this.junkSpawnerCtrl = GetComponent<JunkSpawnerCtrl>();
+        Debug.Log(transform.name + ": LoadJunkSpawnerCtrl",gameObject);
 
     }
 
@@ -29,7 +29,7 @@ public class JunkRandom : SaiMonoBehaviour
     {
         Vector3 pos = transform.position;
         Quaternion rot = transform.rotation;
-        Transform obj = this.junkCtrl.JunkSpawner.Spawn(JunkSpawner.meteoriteOne,pos,rot);
+        Transform obj = this.junkSpawnerCtrl.JunkSpawner.Spawn(JunkSpawner.meteoriteOne,pos,rot);
         obj.gameObject.SetActive(true);
         Invoke(nameof(JunkSpawning),1f);
     }

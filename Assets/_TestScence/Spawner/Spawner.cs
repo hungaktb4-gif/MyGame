@@ -1,4 +1,4 @@
-using System;
+
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -9,6 +9,8 @@ public abstract class Spawner : SaiMonoBehaviour
     [SerializeField] protected List<Transform> prefabs;
     [SerializeField] protected Transform holder;
     [SerializeField] protected List<Transform> poolObjs;
+    [SerializeField] protected int spawnedCount = 0;
+    public int SpawnedCount => spawnedCount;
     
     protected override void LoadComponents()
     {
@@ -48,9 +50,14 @@ public abstract class Spawner : SaiMonoBehaviour
             Debug.LogError("prefab not found: " + prefab.name);
             return null;
         }
+        return this.Spawn(prefab, spawnPos, rotation);
+    }
+    public virtual Transform Spawn(Transform prefab, Vector3 spawnPos, Quaternion rotation)
+    {
         Transform newPrefab = GetObjectFromPool(prefab); // lấy object
         newPrefab.SetPositionAndRotation(spawnPos,rotation); // đặt vị trí và góc quay
         newPrefab.parent = this.holder;
+        this.spawnedCount++;
         return newPrefab;
     }
     public virtual Transform GetPrefabByName(string prefabName)
@@ -83,5 +90,11 @@ public abstract class Spawner : SaiMonoBehaviour
         this.poolObjs.Add(obj);
         obj.gameObject.SetActive(false);
         Debug.Log("SetActive: " + transform.name);
+        this.spawnedCount--;
+    }
+    public virtual Transform RandomPrefab()
+    {
+        int rand = Random.Range(0,this.prefabs.Count);
+        return this.prefabs[rand];
     }
 }

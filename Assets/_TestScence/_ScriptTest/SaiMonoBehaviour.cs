@@ -8,6 +8,10 @@ public class SaiMonoBehaviour : MonoBehaviour
     {
         this.LoadComponents();
     }
+    protected virtual void OnEnable()
+    {
+        
+    }
     protected virtual void Start()
     {
         //for override
