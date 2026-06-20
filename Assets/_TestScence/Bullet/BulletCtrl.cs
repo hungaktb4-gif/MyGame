@@ -7,7 +7,10 @@ public class BulletCtrl : SaiMonoBehaviour
     [SerializeField] protected DamageSender damageSender;
     public DamageSender DamageSender => damageSender;
     [SerializeField] protected BulletDespawn bulletDespawn;
+    [SerializeField] protected Transform shooter;
+    public Transform Shooter => shooter;
     public BulletDespawn BulletDespawn => bulletDespawn;
+
     protected override void LoadComponents()
     {
         base.LoadComponents();
@@ -25,5 +28,9 @@ public class BulletCtrl : SaiMonoBehaviour
         if(this.bulletDespawn != null) return;
         this.bulletDespawn = GetComponentInChildren<BulletDespawn>();
         Debug.Log(transform.name + ": LoadBulletDespawn",gameObject);
+    }
+    public virtual void SetShooter(Transform shooter)
+    {
+        this.shooter = shooter;
     }
 }

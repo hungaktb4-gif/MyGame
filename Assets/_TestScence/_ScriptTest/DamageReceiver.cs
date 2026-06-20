@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(SphereCollider))]
-public class DamageReceiver : SaiMonoBehaviour
+public abstract class DamageReceiver : SaiMonoBehaviour
 {
     // Script này dùng để quản lý máu(nhận sát thương hoặc trừ sát thương)
     [SerializeField] protected int maxHp = 1;
@@ -56,8 +56,5 @@ public class DamageReceiver : SaiMonoBehaviour
         this.isDead = true;
         this.OnDead();
     }
-    protected virtual void OnDead()
-    {
-        // this function for override
-    }
+   protected abstract void OnDead();
 }

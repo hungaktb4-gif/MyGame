@@ -31,7 +31,7 @@ public class JunkDamageReciever : DamageReceiver
     protected virtual void OnDeadFX()
     {
         string fxName = GetOnDeadFXName();
-        Transform fxOnDead = FXSpawner.Instance.Spawn(fxName,transform.parent.position,transform.parent.rotation);
+        Transform fxOnDead = FXSpawner.Instance.Spawn(fxName,transform.position,transform.rotation);
         fxOnDead.gameObject.SetActive(true);
     }
     protected virtual string GetOnDeadFXName()

@@ -20,7 +20,7 @@ public class BulletImpact : BulletAbstract
         if(this.sphereCollider != null) return;
         this.sphereCollider = GetComponent<SphereCollider>();
         this.sphereCollider.isTrigger = true;
-        this.sphereCollider.radius = 0.05f;
+        this.sphereCollider.radius = 0.04f;
         Debug.Log(transform.name + ": LoadSphereCollder",gameObject);
     }
     protected virtual void LoadRigidbody()
@@ -31,8 +31,22 @@ public class BulletImpact : BulletAbstract
         Debug.Log(transform.name + ": LoadRigidbody",gameObject);
     }
     protected virtual void OnTriggerEnter(Collider other)
+    {   
+        if(other.transform.parent == this.bulletCtrl.Shooter) return;
+        this.CreatImpactFX();
+        this.bulletCtrl.DamageSender.Send(other.transform);   
+    }
+    protected virtual void CreatImpactFX()
     {
-        this.bulletCtrl.DamageSender.Send(other.transform);
-        Debug.Log(transform.name + "Va chạm với 🚀🚀🚀" +other.name);
+        string fxName = this.GetImpactFXName();
+        Vector3 hitPos = transform.position;
+        Quaternion hitRot = transform.rotation;
+        Quaternion rotationEffect = Quaternion.Euler(0,0,-90);
+        Transform fxImpact = FXSpawner.Instance.Spawn(fxName,hitPos, hitRot*rotationEffect);
+        fxImpact.gameObject.SetActive(true);
+    }
+    protected string GetImpactFXName()
+    {
+        return FXSpawner.impact1;
     }
 }

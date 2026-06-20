@@ -73,7 +73,7 @@ public abstract class Spawner : SaiMonoBehaviour
     }
     public virtual Transform GetObjectFromPool(Transform prefab)
     {
-        foreach(Transform poolobj in poolObjs)
+        foreach(Transform poolobj in this.poolObjs)
         {
             if(poolobj.name == prefab.name) // so sánh tên object với prefab
             {
