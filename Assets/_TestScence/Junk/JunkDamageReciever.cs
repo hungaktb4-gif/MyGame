@@ -26,6 +26,7 @@ public class JunkDamageReciever : DamageReceiver
     protected override void OnDead()
     {
         this.OnDeadFX();
+        DropManager.Instance.Drop(junkCtrl.JunkSO.dropList);
         this.junkCtrl.JunkDespawn.DespawnObject();
     }
     protected virtual void OnDeadFX()

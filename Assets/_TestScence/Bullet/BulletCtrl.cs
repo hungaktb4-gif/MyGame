@@ -5,9 +5,9 @@ using UnityEngine;
 public class BulletCtrl : SaiMonoBehaviour
 {
     [SerializeField] protected DamageSender damageSender;
-    public DamageSender DamageSender => damageSender;
     [SerializeField] protected BulletDespawn bulletDespawn;
     [SerializeField] protected Transform shooter;
+    public DamageSender DamageSender => damageSender;
     public Transform Shooter => shooter;
     public BulletDespawn BulletDespawn => bulletDespawn;
 
