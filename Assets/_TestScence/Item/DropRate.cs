@@ -6,7 +6,8 @@ using UnityEngine;
 [Serializable]
 public class DropRate
 {
-   public ItemSO itemSO;
+   // script liên quan đến tỷ lệ rớt đồ 
+   public ItemSO itemSO; // vật phẩm muốn rơi
    public int dropRate;
    public int minDrop;
    public int maxDrop;
