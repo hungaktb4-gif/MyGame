@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class HungMonoBehaviour : MonoBehaviour
 {
+
+    protected virtual void Reset()
+    {
+        this.LoadComponents();
+    }
     protected virtual void Awake()
     {
         this.LoadComponents();

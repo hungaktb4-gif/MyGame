@@ -4,13 +4,18 @@ using UnityEngine;
 
 public class FireTrap : HungMonoBehaviour
 {
-    protected int damage = 50;
-    protected Animator animator;
-    protected PlayerHealth playerHealth;
+    [SerializeField] protected int damage = 50;
+    [SerializeField] protected Animator animator;
+    [SerializeField] protected PlayerHealth playerHealth;
 
     protected override void LoadComponents()
     {
         base.LoadComponents();
+        this.LoadAnimator();
+    }
+    protected virtual void LoadAnimator()
+    {
+        if(this.animator != null) return;
         this.animator = GetComponent<Animator>();
     }
     public void SetFireTrue()

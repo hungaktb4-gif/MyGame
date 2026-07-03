@@ -8,17 +8,26 @@ public class KuroyamiSkill : HungMonoBehaviour
     [SerializeField] protected Transform attackPoint;
     [SerializeField] protected string dataName;
     [SerializeField] protected HeroData heroData;
-    protected float attackRange = 0.6f;
-    protected Animator animator;
-    protected EnemyHealth enemyHealth;
-    protected int damage = 50;
-    protected int cooldown = 10;
-    protected bool canCastSkill;
-    protected float nextDamageTime = 0f;
+    [SerializeField] protected Animator animator;
+    [SerializeField] protected float attackRange = 0.6f;
+    [SerializeField] protected EnemyHealth enemyHealth;
+    [SerializeField] protected int damage = 50;
+    [SerializeField] protected int cooldown = 10;
+    [SerializeField] protected float nextDamageTime = 0f;
+    [SerializeField] protected bool canCastSkill;
 
     protected override void LoadComponents()
     {
+        this.LoadAnimator();
+        this.LoadSO();
+    }
+    protected virtual void LoadAnimator()
+    {
+        if(this.animator != null) return;
         this.animator = GetComponent<Animator>();
+    }
+    protected virtual void LoadSO()
+    {
         this.heroData = Resources.Load<HeroData>(dataName);
         this.heroData.damageSkill = damage;
     }

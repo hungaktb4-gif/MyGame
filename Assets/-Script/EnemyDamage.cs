@@ -9,13 +9,28 @@ public class EnemyDamage : HungMonoBehaviour
    [SerializeField] protected Transform Player;
    protected PlayerHealth playerHealth;
    protected float attackRange = 1.5f;
-   protected Rigidbody2D rb;
+   protected Rigidbody2D _rigidbody2D;
    protected Animator animator;
 
     protected override void LoadComponents()
     {
+        this.LoadAnimator();
+        this.LoadRigidBody();
+        this.LoadEnemySO();
+    }
+    protected virtual void LoadAnimator()
+    {
+        if(this.animator != null) return;
         this.animator = GetComponent<Animator>();
-        this.rb = GetComponent<Rigidbody2D>();
+    }
+    protected virtual void LoadRigidBody()
+    {
+        if(this._rigidbody2D != null) return;
+        this._rigidbody2D = GetComponent<Rigidbody2D>();
+    }
+    protected virtual void LoadEnemySO()
+    {
+        if(this.enemyData != null) return;
         this.enemyData = Resources.Load<EnemyData>(dataName);
     }
     void OnTriggerEnter2D(Collider2D collision)

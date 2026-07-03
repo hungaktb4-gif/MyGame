@@ -17,8 +17,18 @@ public class PlayerDamage : HungMonoBehaviour
     // Start is called before the first frame update
     protected override void LoadComponents()
     {
-        animator = GetComponent<Animator>();
-        heroData = Resources.Load<HeroData>(dataName);
+        this.LoadAnimator();
+        this.LoadSO();
+    }
+    protected virtual void LoadAnimator()
+    {
+        if(this.animator != null) return;
+        this.animator = GetComponent<Animator>();
+    }
+    protected virtual void LoadSO()
+    {
+        if(this.heroData != null) return;
+        this.heroData = Resources.Load<HeroData>(dataName);
     }
     void Update()
     {

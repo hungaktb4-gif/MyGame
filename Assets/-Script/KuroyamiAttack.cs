@@ -16,7 +16,17 @@ public class KuroyamiAttack : HungMonoBehaviour
 
     protected override void LoadComponents()
     {
+        this.LoadAnimator();
+        this.LoadHeroSO();
+    }
+    protected virtual void LoadAnimator()
+    {
+        if(this.animator != null) return;
         this.animator = GetComponent<Animator>();
+    }
+    protected virtual void LoadHeroSO()
+    {
+        if(this.heroData != null) return;
         this.heroData = Resources.Load<HeroData>(dataName);
         this.heroData.damageAttack = damage;
     }
