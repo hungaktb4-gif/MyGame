@@ -10,9 +10,9 @@ public class Inventory : SaiMonoBehaviour
     protected override void Start()
     {
         base.Start();
-        this.AddItem(ItemCode.IronOre, 5);
+        //this.AddItem(ItemCode.IronOre, 5);
     }
-    protected virtual bool AddItem(ItemCode itemCode, int addCount)
+    public virtual bool AddItem(ItemCode itemCode, int addCount)
     {
         ItemInventory itemInventory = this.GetItemByCode(itemCode); //lấy item
         int newCount = itemInventory.itemCount + addCount; // lấy số lượng item hiện có
@@ -35,7 +35,7 @@ public class Inventory : SaiMonoBehaviour
             ItemInventory itemInventory = new ItemInventory
             {
                 itemProfile = profile,  // viết tắt của itemInventory.itemProfile = profile;
-                maxStack = profile.defaultMaxStack   // viết tắt của itemInventory.maxStack = profile.default.MaxStack
+                maxStack = profile.defaultMaxStack   // viết tắt của itemInventory.maxStack = profile.defaultMaxStack
             };
             this.items.Add(itemInventory);
             return itemInventory;
