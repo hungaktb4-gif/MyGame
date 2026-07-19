@@ -13,9 +13,13 @@ public class ItemPickupable : JunkAbstract
         base.LoadComponents();
         this.LoadTrigger();
     }
-    public virtual ItemCode ConvertToEnum(string itemName)
+    public virtual ItemCode String2Enum(string itemName)
     {
         return (ItemCode)System.Enum.Parse(typeof(ItemCode), itemName);
+    }
+    public virtual void OnMouseDown()
+    {
+        PlayerCtrl.Instance.PlayerPickup.ItemPickup(this);
     }
     protected virtual void LoadTrigger()
     {
@@ -27,7 +31,7 @@ public class ItemPickupable : JunkAbstract
     }
     public virtual ItemCode GetItemCode()
     {
-        return ConvertToEnum(transform.parent.name);
+        return String2Enum(transform.parent.name);
     }
     public virtual void Picked()
     {

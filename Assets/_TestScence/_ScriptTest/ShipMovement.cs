@@ -20,7 +20,7 @@ public class ShipMovement : MonoBehaviour
     protected virtual void Moving()
     {
        Vector3 newPos = Vector3.Lerp(transform.parent.position,this.targetPosition,this.speed);
-       transform.parent.position = newPos; 
+       transform.parent.position = newPos;
     }
     protected virtual void LookAtTarget()
     {

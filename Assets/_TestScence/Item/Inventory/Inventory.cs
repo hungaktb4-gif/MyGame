@@ -5,7 +5,7 @@ using UnityEngine;
 public class Inventory : SaiMonoBehaviour
 {
     [SerializeField] protected List<ItemInventory> items = new();
-    [SerializeField] protected int maxStack = 7;
+    [SerializeField] protected int maxSlot = 70;
     // Start is called before the first frame update
     protected override void Start()
     {
