@@ -827,12 +827,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 706923295}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59efc95b93b8feb4282f5a2390002afe, type: 3}
+  m_Script: {fileID: 11500000, guid: 597d4825354f1094780b095c1e8aa793, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   model: {fileID: 2083080395}
-  junkDespawn: {fileID: 1007330072}
-  junkSO: {fileID: 0}
+  itemDespawn: {fileID: 1007330072}
 --- !u!1 &810489855
 GameObject:
   m_ObjectHideFlags: 0
@@ -1232,7 +1231,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1007330070}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e42319530b26cb47bda29a84005a727, type: 3}
+  m_Script: {fileID: 11500000, guid: c082e50492201ef439355176ac15e385, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   disLimit: 70
@@ -1279,7 +1278,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1023891003}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e42319530b26cb47bda29a84005a727, type: 3}
+  m_Script: {fileID: 11500000, guid: c082e50492201ef439355176ac15e385, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   disLimit: 70
@@ -1559,7 +1558,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 834ba22ec8411004fb7b8ccdb6e2e782, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  junkCtrl: {fileID: 1654992325}
+  itemCtrl: {fileID: 1654992325}
   sphereCollider: {fileID: 1227126853}
 --- !u!135 &1227126853
 SphereCollider:
@@ -2220,12 +2219,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1654992323}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59efc95b93b8feb4282f5a2390002afe, type: 3}
+  m_Script: {fileID: 11500000, guid: 597d4825354f1094780b095c1e8aa793, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   model: {fileID: 1417433247}
-  junkDespawn: {fileID: 1023891005}
-  junkSO: {fileID: 0}
+  itemDespawn: {fileID: 1023891005}
 --- !u!1 &1667398788
 GameObject:
   m_ObjectHideFlags: 0
@@ -2916,7 +2914,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 834ba22ec8411004fb7b8ccdb6e2e782, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  junkCtrl: {fileID: 0}
+  itemCtrl: {fileID: 706923297}
   sphereCollider: {fileID: 2124278456}
 --- !u!135 &2124278456
 SphereCollider:
@@ -2929,7 +2927,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.1
+  m_Radius: 0.05
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2095774904233075
 GameObject:

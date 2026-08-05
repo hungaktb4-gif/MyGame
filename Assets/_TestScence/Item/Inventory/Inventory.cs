@@ -11,6 +11,7 @@ public class Inventory : SaiMonoBehaviour
     {
         base.Start();
         //this.AddItem(ItemCode.IronOre, 5);
+        //this.DeductItem(ItemCode.IronOre,2);
     }
     public virtual bool AddItem(ItemCode itemCode, int addCount)
     {
@@ -18,6 +19,21 @@ public class Inventory : SaiMonoBehaviour
         int newCount = itemInventory.itemCount + addCount; // lấy số lượng item hiện có
         if(newCount > itemInventory.maxStack) return false; // vượt quá số lượng tối đa thì không tăng thêm nữa
         itemInventory.itemCount = newCount;
+        return true;
+    }
+    public virtual bool DeductItem(ItemCode itemCode, int amount)
+    {
+        ItemInventory itemInventory = this.GetItemByCode(itemCode);
+        int newCount = itemInventory.itemCount - amount;
+        if(newCount <= 0) return false;
+        itemInventory.itemCount = newCount;
+        return true;
+    }
+    public virtual bool TryDeductItem(ItemCode itemCode, int amount)
+    {
+        ItemInventory itemInventory = this.GetItemByCode(itemCode);
+        int newCount = itemInventory.itemCount - amount;
+        if(newCount <= 0) return false;
         return true;
     }
     protected virtual ItemInventory GetItemByCode(ItemCode itemCode)

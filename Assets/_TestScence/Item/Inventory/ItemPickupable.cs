@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(SphereCollider))]
-public class ItemPickupable : JunkAbstract
+public class ItemPickupable : ItemAbstract
 {
     [SerializeField] protected SphereCollider sphereCollider;
 
@@ -13,9 +13,17 @@ public class ItemPickupable : JunkAbstract
         base.LoadComponents();
         this.LoadTrigger();
     }
-    public virtual ItemCode String2Enum(string itemName)
+    public static ItemCode String2Enum(string itemName)
     {
-        return (ItemCode)System.Enum.Parse(typeof(ItemCode), itemName);
+        try
+        {
+           return (ItemCode)System.Enum.Parse(typeof(ItemCode), itemName);
+        }
+        catch(ArgumentException e)
+        {
+            Debug.LogError(e.ToString());
+            return ItemCode.NoItem;
+        }
     }
     public virtual void OnMouseDown()
     {
@@ -35,6 +43,6 @@ public class ItemPickupable : JunkAbstract
     }
     public virtual void Picked()
     {
-        this.junkCtrl.JunkDespawn.DespawnObject();
+        this.itemCtrl.ItemDespawn.DespawnObject();
     }
 }
